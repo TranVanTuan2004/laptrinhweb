@@ -1,4 +1,4 @@
-Bảng cửu chương 2:
+Bảng cửu chương 2
 2 * 1 = 2
 2 * 2 = 4
 2 * 3 = 6
