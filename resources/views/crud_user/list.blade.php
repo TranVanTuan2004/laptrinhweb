@@ -4,22 +4,22 @@
     <main class="login-form">
         <div class="container">
             <div class="row justify-content-center">
-                <table>
+                <table class="table-auto border-collapse border border-gray-300 w-full">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Action</th>
+                            <th class="border border-gray-500">ID</th>
+                            <th class="border border-gray-500">Name</th>
+                            <th class="border border-gray-500">Email</th>
+                            <th class="border border-gray-500">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach ($users as $user)
                             <tr>
-                                <th>{{ $user->id }}</th>
-                                <th>{{ $user->name }}</th>
-                                <th>{{ $user->email }}</th>
-                                <th>
+                                <th class="border border-gray-500">{{ $user->id }}</th>
+                                <th class="border border-gray-500">{{ $user->name }}</th>
+                                <th class="border border-gray-500">{{ $user->email }}</th>
+                                <th class="border border-gray-500">
                                     <a href="{{ route('user.readUser', ['id' => $user->id]) }}">View</a> |
                                     <a href="{{ route('user.updateUser', ['id' => $user->id]) }}">Edit</a> |
                                     <a href="{{ route('user.deleteUser', ['id' => $user->id]) }}">Delete</a>
