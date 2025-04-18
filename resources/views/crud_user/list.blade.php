@@ -3,41 +3,91 @@
 @section('content')
     <main class="login-form">
         <div class="container">
+            <style>
+                .custom-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    font-family: Arial, sans-serif;
+                }
+
+                .custom-table th,
+                .custom-table td {
+                    padding: 12px 16px;
+                    border: 1px solid #ccc;
+                    text-align: left;
+                }
+
+                .custom-table thead {
+                    background-color: #f5f5f5;
+                }
+
+                .custom-table tbody tr:hover {
+                    background-color: #f0f8ff;
+                }
+
+                .custom-table a {
+                    text-decoration: none;
+                    margin: 0 4px;
+                }
+
+                .action-view {
+                    color: green;
+                }
+
+                .action-edit {
+                    color: orange;
+                }
+
+                .action-delete {
+                    color: red;
+                }
+
+                .pagination-container {
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            </style>
+
             <div class="row justify-content-center">
-                <table class="table-auto border-collapse border border-gray-300 w-full">
+                <table class="custom-table">
                     <thead>
                         <tr>
-                            <th class="border border-gray-500">ID</th>
-                            <th class="border border-gray-500">Name</th>
-                            <th class="border border-gray-500">Email</th>
-                            <th class="border border-gray-500">Role</th>
-                            <th class="border border-gray-500">Action</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <th class="border border-gray-500">{{ $user->id }}</th>
-                                <th class="border border-gray-500">{{ $user->name }}</th>
-                                <th class="border border-gray-500">{{ $user->email }}</th>
-                                <th class="border border-gray-500">
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
                                     @foreach ($user->roles as $role)
-                                        <a style="color: black" href="{{ route('user.role', ['id' => $role->id]) }}">
+                                        <a href="{{ route('user.role', ['id' => $role->id]) }}" style="color: #000;">
                                             {{ $role->name }}
                                         </a>
                                     @endforeach
-                                </th>
-                                <th class="border border-gray-500">
-                                    <a href="{{ route('user.readUser', ['id' => $user->id]) }}">View</a> |
-                                    <a href="{{ route('user.updateUser', ['id' => $user->id]) }}">Edit</a> |
-                                    <a href="{{ route('user.deleteUser', ['id' => $user->id]) }}">Delete</a>
-                                </th>
+                                </td>
+                                <td>
+                                    <a href="{{ route('user.readUser', ['id' => $user->id]) }}" class="action-view">View</a> |
+                                    <a href="{{ route('user.updateUser', ['id' => $user->id]) }}" class="action-edit">Edit</a>
+                                    |
+                                    <a href="{{ route('user.deleteUser', ['id' => $user->id]) }}"
+                                        class="action-delete">Delete</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <div style="margin-top: 20px; display: flex; justify-content: end;">
+
+            <div class="pagination-container">
                 {{ $users->links('pagination::bootstrap-4') }}
             </div>
         </div>
