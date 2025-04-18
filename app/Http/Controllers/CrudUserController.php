@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 /**
  * CRUD User controller
@@ -57,8 +57,6 @@ class CrudUserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'age' => 'required',
-            'facebook' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
@@ -66,8 +64,6 @@ class CrudUserController extends Controller
         $data = $request->all();
         $check = User::create([
             'name' => $data['name'],
-            'age' => $data['age'],
-            'facebook' => $data['facebook'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
@@ -116,16 +112,12 @@ class CrudUserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'age' => 'required',
-            'facebook' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,id,' . $input['id'],
             'password' => 'required|min:6',
         ]);
 
         $user = User::find($input['id']);
         $user->name = $input['name'];
-        $user->age = $input['age'];
-        $user->facebook = $input['facebook'];
         $user->email = $input['email'];
         $user->password = $input['password'];
         $user->save();
@@ -139,16 +131,13 @@ class CrudUserController extends Controller
     public function listUser()
     {
         if (Auth::check()) {
-            $users = User::all();
+            $users = User::latest()->paginate(10);
             return view('crud_user.list', ['users' => $users]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
-    /**
-     * Sign out
-     */
     public function signOut()
     {
         Session::flush();
@@ -156,4 +145,5 @@ class CrudUserController extends Controller
 
         return Redirect('login');
     }
+
 }
