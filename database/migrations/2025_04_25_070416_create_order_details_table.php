@@ -10,10 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_role', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('role_id');
+            $table->integer('order_id');
+            $table->integer('product_id');
+            $table->string('quantity');
+            $table->string('notes');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_role');
+        Schema::dropIfExists('order_details');
     }
 };

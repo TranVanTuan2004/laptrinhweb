@@ -131,7 +131,7 @@ class CrudUserController extends Controller
     public function listUser()
     {
         if (Auth::check()) {
-            $users = User::latest()->paginate(10);
+            $users = User::withCount('orders')->latest()->paginate(10);
             return view('crud_user.list', ['users' => $users]);
         }
 
@@ -144,6 +144,13 @@ class CrudUserController extends Controller
         Auth::logout();
 
         return Redirect('login');
+    }
+
+    public function getUserOrders(Request $request)
+    {
+        $id = $request->id;
+        $user_orders = User::with('orders.products')->findOrFail($id);
+        return view('order.index', compact('user_orders'));
     }
 
 }
