@@ -57,6 +57,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Orders</th>
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
@@ -67,6 +68,10 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>
+                                    <a href={{ route('user.getUserOrders', ['id' => $user->id]) }}>{{ $user->orders_count }}</a>
+                                </td>
+
                                 <td>
                                     @foreach ($user->roles as $role)
                                         <a href="{{ route('user.role', ['id' => $role->id]) }}" style="color: #000;">
