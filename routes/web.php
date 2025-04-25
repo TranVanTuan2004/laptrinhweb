@@ -4,6 +4,7 @@ use App\Http\Controllers\exe1;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,5 @@ Route::get('/', function () {
 
 
 Route::get('role', [RoleController::class, 'role'])->name('user.role');
+
+Route::get('/users/{id}/orders', [CrudUserController::class, 'getUserOrders'])->name('user.getUserOrders');
