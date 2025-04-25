@@ -42,3 +42,5 @@ Route::get('/', function () {
 
 
 Route::get('role', [RoleController::class, 'role'])->name('user.role');
+
+Route::get('/users/{id}/orders', [CrudUserController::class, 'getUserOrders'])->name('user.getUserOrders');
